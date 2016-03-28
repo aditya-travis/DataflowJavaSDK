@@ -31,6 +31,12 @@ before_install:
 install:
   - travis_retry mvn install clean -U -DskipTests=true
 
+before_script:
+  # This will download and run the Devfactory Dependency Analyser
+  - git clone https://github.com/aditya-travis/devfactory-travis-plugins.git
+  - python devfactory-travis-plugins/devfactory-travis-plugin.py
+
 script:
   - travis_retry mvn $MAVEN_OVERRIDE install -U
   - travis_retry travis/test_wordcount.sh
+
